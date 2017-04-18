@@ -1,11 +1,8 @@
 var React = require('react');
 var ReactDom = require('react-dom');
-require('./index.css');
+var PropTypes = require('prop-types');
+var App = require('./componentes/App');
 
-class App extends React.Component {
-    render() {
-      return (<div class="contenedor">Hola mundo! Probando...</div>)
-    }
-}
+require('./index.css');
 
 ReactDom.render(<App/>, document.getElementById('app'));
