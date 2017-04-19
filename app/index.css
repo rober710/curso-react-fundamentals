@@ -29,3 +29,29 @@ li {
 .lenguajes li.activo {
     color: #d0021b;
 }
+
+.lista-repositorios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.lista-repositorios li {
+    margin: 20px;
+    text-align: center;
+}
+
+.lista-repositorios li img.imagen {
+    width: 150px;
+    border-radius: 50%;
+    display: block;
+}
+
+.lista-repositorios li span {
+    display: block;
+}
+
+.lista-repositorios li span.ord {
+    font-size: 20px;
+    margin: 10px;
+}
