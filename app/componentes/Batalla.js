@@ -4,6 +4,7 @@
 
 var React = require('react');
 var PropTypes = require('prop-types');
+var Link = require('react-router-dom').Link;
 
 class IngresoJugador extends React.Component {
     constructor(props) {
@@ -44,6 +45,24 @@ IngresoJugador.propTypes = {
     alEnviar: PropTypes.func.isRequired
 };
 
+
+function VistaJugador(props) {
+    return (<div>
+        <div className="info-jugador">
+            <img className="imagen" src={props.img} alt={props.nombreUsuario}/>
+            <h2 className="nombre">@{props.nombreUsuario}</h2>
+        </div>
+        <button className="resetear" onClick={props.resetear.bind(null, props.id)}>Resetear</button>
+    </div>);
+}
+
+VistaJugador.propTypes = {
+    id: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    nombreUsuario: PropTypes.string.isRequired,
+    resetear: PropTypes.func.isRequired
+};
+
 class Batalla extends React.Component {
     constructor(props) {
         super(props);
@@ -54,6 +73,7 @@ class Batalla extends React.Component {
             imagenJugador2: null
         };
         this.manejarEnvio = this.manejarEnvio.bind(this);
+        this.manejarReseteo = this.manejarReseteo.bind(this);
     }
 
     manejarEnvio(id, nombreUsuario) {
@@ -65,12 +85,32 @@ class Batalla extends React.Component {
         });
     }
 
+    manejarReseteo(id) {
+        this.setState(() => {
+            return {
+                ['nombre' + id]: '',
+                ['imagen' + id]: null
+            };
+        });
+    }
+
     render() {
         return (<div>
             <div className="contenedor-jugador">
-                {!this.state.nombreJugador1 && <IngresoJugador id="Jugador1" etiqueta="Jugador 1" alEnviar={this.manejarEnvio}/>}
-                {!this.state.nombreJugador2 && <IngresoJugador id="Jugador2" etiqueta="Jugador 2" alEnviar={this.manejarEnvio}/>}
+                {this.state.nombreJugador1 ?
+                    <VistaJugador id="Jugador1" img={this.state.imagenJugador1}
+                                  nombreUsuario={this.state.nombreJugador1} resetear={this.manejarReseteo.bind(null, 'Jugador1')}/>
+                    : <IngresoJugador id="Jugador1" etiqueta="Jugador 1" alEnviar={this.manejarEnvio}/>}
+                {this.state.nombreJugador2 ?
+                    <VistaJugador id="Jugador2" img={this.state.imagenJugador2}
+                                  nombreUsuario={this.state.nombreJugador2} resetear={this.manejarReseteo.bind(null, 'Jugador2')}/>
+                    : <IngresoJugador id="Jugador2" etiqueta="Jugador 2" alEnviar={this.manejarEnvio}/>}
             </div>
+            {(this.state.imagenJugador1 !== null && this.state.imagenJugador2 !== null)
+                && <Link className="boton" to={{
+                    pathname: this.props.match.url + '/resultados',
+                    search: `?nombreJugador1=${this.state.nombreJugador1}&nombreJugador2=${this.state.nombreJugador2}`
+                }}>Combatir!</Link>}
         </div>);
     }
 }

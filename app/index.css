@@ -58,7 +58,8 @@ li {
     text-align: center;
 }
 
-.lista-repositorios li img.imagen {
+.lista-repositorios li img.imagen,
+.info-jugador img.imagen {
     width: 150px;
     border-radius: 50%;
     display: block;
@@ -107,7 +108,8 @@ li {
     justify-content: space-around;
 }
 
-.contenedor-jugador .frm-jugador {
+.contenedor-jugador .frm-jugador,
+.info-jugador {
     display: flex;
     flex-direction: column;
     width: 500px;
@@ -127,4 +129,14 @@ li {
     text-align: center;
     font-size: 30px;
     font-weight: 200;
+}
+
+.resetear {
+    border: none;
+    background: transparent;
+    color: #d0021b;
+    display: block;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
 }
