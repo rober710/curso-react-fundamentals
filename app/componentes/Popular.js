@@ -2,6 +2,8 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var api = require('../utils/api');
 
+var Cargando = require('./Cargando');
+
 class LenguajeSeleccionado extends React.Component {
     render() {
         let lenguajes = ['Todos', 'JavaScript', 'Ruby', 'Java', 'Python', 'CSS'];
@@ -60,7 +62,6 @@ class Popular extends React.Component {
         });
 
         api.obtenerReposPopulares(this.state.lenguajeActivo).then(repos => {
-            console.log('Callback llamado.', repos);
             this.setState(() => {
                 return {repos}
             });
@@ -71,7 +72,7 @@ class Popular extends React.Component {
         return (<div>
             <LenguajeSeleccionado lenguajeActivo={this.state.lenguajeActivo}
                                   alSeleccionar={this.actualizarLenguaje}/>
-            { !this.state.repos ? <p>Cargando</p> : <MallaRepos repos={this.state.repos}/> }
+            { !this.state.repos ? <Cargando/> : <MallaRepos repos={this.state.repos}/> }
         </div>);
     }
 }

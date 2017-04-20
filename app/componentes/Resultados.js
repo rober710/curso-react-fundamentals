@@ -10,6 +10,7 @@ var Link = require('react-router-dom').Link;
 
 var api = require('../utils/api');
 var VistaJugador = require('./VistaJugador');
+var Cargando = require('./Cargando');
 
 function ResultadoJugador(props) {
     return (<div>
@@ -70,7 +71,7 @@ class Resultados extends React.Component {
     }
     render() {
         if (this.state.cargando) {
-            return (<p>Cargando...</p>);
+            return (<Cargando/>);
         }
 
         if (this.state.error) {
