@@ -140,3 +140,8 @@ li {
     text-align: center;
     cursor: pointer;
 }
+
+.contenedor-resultados {
+    display: flex;
+    justify-content: space-around;
+}

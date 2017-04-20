@@ -6,6 +6,8 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
 
+var VistaJugador = require('./VistaJugador');
+
 class IngresoJugador extends React.Component {
     constructor(props) {
         super(props);
@@ -45,24 +47,6 @@ IngresoJugador.propTypes = {
     alEnviar: PropTypes.func.isRequired
 };
 
-
-function VistaJugador(props) {
-    return (<div>
-        <div className="info-jugador">
-            <img className="imagen" src={props.img} alt={props.nombreUsuario}/>
-            <h2 className="nombre">@{props.nombreUsuario}</h2>
-        </div>
-        <button className="resetear" onClick={props.resetear.bind(null, props.id)}>Resetear</button>
-    </div>);
-}
-
-VistaJugador.propTypes = {
-    id: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    nombreUsuario: PropTypes.string.isRequired,
-    resetear: PropTypes.func.isRequired
-};
-
 class Batalla extends React.Component {
     constructor(props) {
         super(props);
@@ -98,12 +82,16 @@ class Batalla extends React.Component {
         return (<div>
             <div className="contenedor-jugador">
                 {this.state.nombreJugador1 ?
-                    <VistaJugador id="Jugador1" img={this.state.imagenJugador1}
-                                  nombreUsuario={this.state.nombreJugador1} resetear={this.manejarReseteo.bind(null, 'Jugador1')}/>
+                    <VistaJugador img={this.state.imagenJugador1}
+                                  nombreUsuario={this.state.nombreJugador1}>
+                        <button className="resetear" onClick={this.manejarReseteo.bind(null, 'Jugador1')}>Resetear</button>
+                    </VistaJugador>
                     : <IngresoJugador id="Jugador1" etiqueta="Jugador 1" alEnviar={this.manejarEnvio}/>}
                 {this.state.nombreJugador2 ?
-                    <VistaJugador id="Jugador2" img={this.state.imagenJugador2}
-                                  nombreUsuario={this.state.nombreJugador2} resetear={this.manejarReseteo.bind(null, 'Jugador2')}/>
+                    <VistaJugador img={this.state.imagenJugador2}
+                                  nombreUsuario={this.state.nombreJugador2}>
+                        <button className="resetear" onClick={this.manejarReseteo.bind(null, 'Jugador2')}>Resetear</button>
+                    </VistaJugador>
                     : <IngresoJugador id="Jugador2" etiqueta="Jugador 2" alEnviar={this.manejarEnvio}/>}
             </div>
             {(this.state.imagenJugador1 !== null && this.state.imagenJugador2 !== null)
